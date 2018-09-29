@@ -2,11 +2,15 @@
 
 package com.reactnativedemo.helloworld;
 
+import android.graphics.Color;
+import android.provider.CalendarContract;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 
@@ -42,7 +46,16 @@ public class HelloWorldManager extends SimpleViewManager<View> {
         // https://facebook.github.io/react-native/docs/native-components-android.html#3-expose-view-property-setters-using-reactprop-or-reactpropgroup-annotation
     }
 
-
+    @Override
+    public void receiveCommand(View view, int commandId, @Nullable ReadableArray args) {
+        super.receiveCommand(view, commandId, args);
+        if (commandId == 0) {
+            tv.setText("you you you ");
+            //if (mMyLocation != null) {
+                //view.getController().setCenter(mMyLocation);
+            //}
+        }
+    }
         private LinearLayout addViewByJava() {
         LinearLayout container = new LinearLayout(mContext);//主布局container
         tv = new TextView(mContext);//子View TextView
@@ -57,6 +70,8 @@ public class HelloWorldManager extends SimpleViewManager<View> {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         tv.setLayoutParams(vlp);// 设置TextView的布局
         tv.setText("hello word");
+        tv.setWidth(200);
+        tv.setBackgroundColor(Color.YELLOW);
         container.addView(tv);// 将TextView 添加到container中
         return container;
     }
